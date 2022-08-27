@@ -19,6 +19,7 @@ namespace AdvertismentTask.Controllers
 
         public IActionResult Index()
         {
+
             return View();
         }
 
@@ -40,6 +41,7 @@ namespace AdvertismentTask.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Validate(string username, string password, string returnUrl)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             if (username == "Admin" && password == "123")
             {
                 var claims = new List<Claim>();
@@ -50,9 +52,14 @@ namespace AdvertismentTask.Controllers
                 await HttpContext.SignInAsync(claimsPrincipal);
                 return Redirect(returnUrl);
             }
-            return BadRequest();
+            TempData["Error"] = "Error. Username or Password is invalid";
+            return View("login");
         }
-
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return Redirect("/");
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
