@@ -11,10 +11,11 @@ namespace AdvertismentTask.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private ApplicationContext _db;
+        public HomeController(ILogger<HomeController> logger, ApplicationContext db)
         {
             _logger = logger;
+            _db = db;
         }
 
         public IActionResult Index()
@@ -22,7 +23,17 @@ namespace AdvertismentTask.Controllers
 
             return View();
         }
-
+        public IActionResult Registr()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Registr(User user)
+        {
+            _db.Users.Add(user);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
         public IActionResult Privacy()
         {
             return View();
@@ -42,10 +53,11 @@ namespace AdvertismentTask.Controllers
         public async Task<IActionResult> Validate(string username, string password, string returnUrl)
         {
             ViewData["ReturnUrl"] = returnUrl;
-            if (username == "Admin" && password == "123")
+            var user = _db.Users.FirstOrDefault(x => x.Name == username);
+            if (user is not null && user.Password == password)
             {
                 var claims = new List<Claim>();
-                claims.Add(new Claim("username", username));
+                claims.Add(new Claim(ClaimTypes.Name, username));
                 claims.Add(new Claim(ClaimTypes.NameIdentifier, password));
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
