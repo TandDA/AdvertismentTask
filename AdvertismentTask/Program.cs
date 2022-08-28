@@ -1,7 +1,10 @@
+using AdvertismentTask.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -10,6 +13,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         option.LoginPath = "/login";
     });
 builder.Services.AddAuthorization();
+builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
