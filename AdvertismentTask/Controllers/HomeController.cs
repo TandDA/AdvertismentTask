@@ -39,7 +39,7 @@ namespace AdvertismentTask.Controllers
             return View();
         }
         [Authorize]
-        public IActionResult Secured()
+        public IActionResult CreateAd()
         {
             return View();
         }
