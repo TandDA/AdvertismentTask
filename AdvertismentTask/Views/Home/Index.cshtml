@@ -1,6 +1,9 @@
-﻿@{
+﻿@model List<Advertisement>
+@{
 	ViewData["Title"] = "Home Page";
-	List<int> P = new List<int>() {1,2,3,4};
+	var P = Model;
+
+	Thread.Sleep(1);
 }
 
 <div class="text-center">
@@ -8,15 +11,15 @@
 	<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 <div class="row gx-4 gx-lg-5">
-	@foreach (var product in P)
+	@foreach (var adv in P)
 	{
 		<div class="col-md-4 mb-5">
 			<div class="card h-100">
 				<div class="card-body">
-					<div><img class="card-img-top" href="img\rassel11.jpg" src="img\rassel11.jpg" alt="sd" /></div>
-					<h2 class="card-title"><a asp-area="" asp-controller="Product" asp-action="Index">sd</a></h2>
+					<div><img class="card-img-top" href=@adv.Image src=@adv.Image alt="sd" /></div>
+					<h2 class="card-title"><a asp-area="" asp-controller="Product" asp-action="Index">@adv.Title</a></h2>
 					<div>
-						<p class="font-weight-normal">Discript <a asp-area="" asp-controller="Product" asp-action="Index">Подробнее</a></p>
+						<p class="font-weight-normal">@adv.Text <a asp-area="" asp-controller="Product" asp-action="Index">Подробнее</a></p>
 					</div>
 					<p class="font-weight-normal">322 ₽</p>
 				</div>

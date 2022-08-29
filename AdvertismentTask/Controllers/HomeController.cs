@@ -12,16 +12,18 @@ namespace AdvertismentTask.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private ApplicationContext _db;
-        public HomeController(ILogger<HomeController> logger, ApplicationContext db)
+        private IWebHostEnvironment _appEnvironment;
+        public HomeController(ILogger<HomeController> logger, ApplicationContext db, IWebHostEnvironment appEnvironment)
         {
             _logger = logger;
             _db = db;
+            _appEnvironment = appEnvironment;
         }
 
         public IActionResult Index()
         {
-
-            return View();
+            ViewBag.HostPath = _appEnvironment.WebRootPath;
+            return View(_db.Advertisements.ToList());
         }
         public IActionResult Registr()
         {
@@ -37,6 +39,33 @@ namespace AdvertismentTask.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateAd(AdvertismentViewModel advViewModel)
+        {
+            if (advViewModel != null)
+            {
+                // путь к папке Files
+                string path = $@"/images/{advViewModel.Image.FileName}";
+                string fullPath = _appEnvironment.WebRootPath + path;
+
+                Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
+                // сохраняем файл в папку Files в каталоге wwwroot
+                using (var fileStream = new FileStream(fullPath, FileMode.Create))
+                {
+                    await advViewModel.Image.CopyToAsync(fileStream);
+                }
+                Advertisement adv = new Advertisement {
+                    Title = advViewModel.Title,
+                    Text = advViewModel.Text,
+                    Image = path,
+                    User = _db.Users.FirstOrDefault(x => x.Name == User.Identity!.Name)!
+                };
+                _db.Advertisements.Add(adv);
+                _db.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
         }
         [Authorize]
         public IActionResult CreateAd()

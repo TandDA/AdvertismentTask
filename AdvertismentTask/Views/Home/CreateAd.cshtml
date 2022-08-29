@@ -3,4 +3,19 @@
 *@
 @{
 }
-<h1>This is Top Secret</h1>
+<form asp-controller="Home" asp-action="CreateAd" method="post" enctype="multipart/form-data">
+	<div class="mb-3">
+		<label class="form-label">Заголовок</label>
+		<input type="text" class="form-control" name="Title">
+	</div>
+	<div class="mb-3">
+		<label class="form-label">Текст объявления</label>
+		<textarea class="form-control" name="Text" rows="3"></textarea>
+	</div>
+	<div class="form-file">
+		<input type="file" class="form-file-input" name="Image">
+		<label class="form-file-label">ssss</label>
+	</div>
+	<br/>
+	<input type="submit" value="Создать" />
+</form>
