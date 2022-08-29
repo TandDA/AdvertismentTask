@@ -7,7 +7,7 @@ namespace AdvertismentTask.Models
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<Advertisement> Advertisements { get; set; } = null!;
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
-        {
+        {    
             Database.EnsureCreated();   // создаем базу данных при первом обращении
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
