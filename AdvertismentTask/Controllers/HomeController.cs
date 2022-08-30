@@ -19,7 +19,12 @@ namespace AdvertismentTask.Controllers
             _db = db;
             _appEnvironment = appEnvironment;
         }
-
+        public IActionResult AdvertismentCard(int id)
+        {
+            Advertisement adv = _db.Advertisements.FirstOrDefault(a => a.Id == id);
+            if (adv == null) return NotFound();
+            return View(adv);
+        }
         public IActionResult Index()
         {
             ViewBag.HostPath = _appEnvironment.WebRootPath;

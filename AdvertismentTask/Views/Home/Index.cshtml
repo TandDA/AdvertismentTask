@@ -1,4 +1,4 @@
-﻿@model List<Advertisement>
+﻿@model IEnumerable<Advertisement>
 @{
 	ViewData["Title"] = "Home Page";
 	var P = Model;
@@ -7,8 +7,7 @@
 }
 
 <div class="text-center">
-	<h1 class="display-4">Welcome</h1>
-	<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+	<h1 class="display-4">Объявления</h1>
 </div>
 <div class="row gx-4 gx-lg-5">
 	@foreach (var adv in P)
@@ -17,9 +16,9 @@
 			<div class="card h-100">
 				<div class="card-body">
 					<div><img class="card-img-top" href=@adv.Image src=@adv.Image alt="sd" /></div>
-					<h2 class="card-title"><a asp-area="" asp-controller="Product" asp-action="Index">@adv.Title</a></h2>
+					<h2 class="card-title">@adv.Title</h2>
 					<div>
-						<p class="font-weight-normal">@adv.Text <a asp-area="" asp-controller="Product" asp-action="Index">Подробнее</a></p>
+						<p class="font-weight-normal">@adv.Text.Substring(0, adv.Text.Length / 2) <a asp-area="" asp-controller="Home" asp-action="AdvertismentCard" asp-route-id ="@adv.Id">Подробнее</a></p>
 					</div>
 					<p class="font-weight-normal">322 ₽</p>
 				</div>

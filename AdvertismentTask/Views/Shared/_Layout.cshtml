@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/AdvertismentTask.styles.css" asp-append-version="true" />
+	
 	<script src="https://kit.fontawesome.com/27e6dcec0d.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -18,7 +19,7 @@
 						aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" id="navbarNavDropdown">
 					<ul class="navbar-nav flex-grow-1">
 						<li class="nav-item">
 							<a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index">Список</a>
@@ -31,6 +32,17 @@
 						</li>
 					</ul>
 					<ul class="navbar-nav ms-auto">
+												        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
 						@if (User.Identity!.IsAuthenticated)
 						{
 							<li class="nav-item dropdown">
@@ -47,6 +59,7 @@
 							</li>
 						}
 					</ul>
+
 				</div>
 			</div>
 		</nav>
