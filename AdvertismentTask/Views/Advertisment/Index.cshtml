@@ -1,9 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-<form asp-controller="Advertisment" asp-action="CreateAd" method="post" enctype="multipart/form-data">
+﻿<form asp-controller="Advertisment" asp-action="CreateAd" method="post" enctype="multipart/form-data">
 	<div class="mb-3">
 		<label class="form-label">Заголовок</label>
 		<input type="text" class="form-control" name="Title">
@@ -14,7 +9,7 @@
 	</div>
 	<div class="form-file">
 		<input type="file" class="form-file-input" name="Image">
-		<label class="form-file-label">ssss</label>
+		<label class="form-file-label">Картинка объявления</label>
 	</div>
 	<br/>
 	<input type="submit" value="Создать" />

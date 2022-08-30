@@ -44,6 +44,7 @@ namespace AdvertismentTask.Controllers
                     Title = advViewModel.Title,
                     Text = advViewModel.Text,
                     Image = path,
+                    CreationDate = DateTime.Now,
                     User = _db.Users.FirstOrDefault(x => x.Name == User.Identity!.Name)!
                 };
                 _db.Advertisements.Add(adv);
