@@ -19,7 +19,7 @@ namespace AdvertismentTask.Controllers
         {
             _db.Users.Add(user);
             _db.SaveChanges();
-            return Redirect("~/Home/Index");
+            return RedirectToAction("Index","Home");
         }
     }
 }

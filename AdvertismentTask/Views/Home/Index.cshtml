@@ -12,15 +12,18 @@
 <div class="row gx-4 gx-lg-5">
 	@foreach (var adv in P)
 	{
+		 
+		string adText = adv.Text!.Length<100? adv.Text:adv.Text.Substring(0, 100);
+		
 		<div class="col-md-4 mb-5">
 			<div class="card h-100">
 				<div class="card-body">
 					<div><img class="card-img-top" href=@adv.Image src=@adv.Image alt="sd" /></div>
 					<h2 class="card-title">@adv.Title</h2>
 					<div>
-						<p class="font-weight-normal">@adv.Text.Substring(0, adv.Text.Length / 2) <a asp-area="" asp-controller="Advertisment" asp-action="AdvertismentCard" asp-route-id ="@adv.Id">Подробнее</a></p>
+						<p class="font-weight-normal">@adText <a asp-area="" asp-controller="Advertisment" asp-action="AdvertismentCard" asp-route-id="@adv.Id">Подробнее</a></p>
 					</div>
-					<p class="font-weight-normal">322 ₽</p>
+					<p class="font-weight-normal"></p>
 				</div>
 			</div>
 		</div>
