@@ -1,13 +1,29 @@
-﻿<div class="card text-center">
-  <div class="card-header">
-    Featured
-  </div>
-  <div class="card-body">
-    <h5 class="card-title">Special title treatment</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-  <div class="card-footer text-muted">
-    2 days ago
-  </div>
-</div>
+﻿@using AdvertismentTask.Models
+@{
+    ViewData["Title"] = "Home Page";
+}
+@model IEnumerable<Advertisement>
+<h1>Список пользователей</h1>
+<table class="table">
+    <tr>
+        <th>
+            <a asp-action="CheckAdvertisment" asp-route-sortOrder="@ViewBag.TitleSort">
+                Заголовк
+            </a>
+        </th>
+        <th>
+            <a asp-action="CheckAdvertisment" asp-route-sortOrder="@ViewBag.TextSort">
+                Длина текста
+            </a>
+        </th>
+        <th>
+            <a asp-action="CheckAdvertisment" asp-route-sortOrder="@ViewBag.DateSort">
+                Дата создания
+            </a>
+        </th>
+    </tr>
+    @foreach (Advertisement u in Model)
+    {
+        <tr><td>@u.Title</td><td>@u.Text</td><td>@u.CreationDate.ToShortDateString()</td><td><a asp-controller="Advertisment" asp-action="AdvertismentCard" asp-route-id=@u.Id>Карточка</a></td></tr>
+    }
+</table>

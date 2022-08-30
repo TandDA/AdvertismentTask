@@ -26,6 +26,20 @@
                             <p class="font-italic">@Model.Text</p>
                         </div>
                     </div>
+
+                    <div class="text-left">
+                        <div class="btn-group-vertical" role="group" aria-label="Basic example">
+                            @if(Model.IsAvailable == false)
+                            {
+                                 <a type="button" class="btn btn-dark" asp-area="" asp-controller="Advertisment" asp-action="ChangeAvailable" asp-route-id="@Model.Id">Открыть в общий доступ</a>
+                            }
+                            else
+                            {
+                                  <a type="button" class="btn btn-dark" asp-area="" asp-controller="Advertisment" asp-action="ChangeAvailable" asp-route-id="@Model.Id">Скрыть</a>
+                            }
+                        <a type="button" class="btn btn-primary" asp-area="" asp-controller="Advertisment" asp-action="Add" asp-route-id="@Model.Id">Удалить</a>
+                        </div>
+                    </div>
                 </div>
             </div>
     }

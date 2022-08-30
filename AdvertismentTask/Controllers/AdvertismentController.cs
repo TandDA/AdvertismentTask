@@ -13,6 +13,14 @@ namespace AdvertismentTask.Controllers
             _db = db;
             _appEnvironment = appEnvironment;
         }
+        [Authorize(Roles ="Admin")]
+        public IActionResult ChangeAvailable(int id)
+		{
+            Advertisement adv = _db.Advertisements.FirstOrDefault(a => a.Id == id);
+            adv.IsAvailable = !adv.IsAvailable;
+            _db.SaveChanges();
+            return RedirectToAction("AdvertismentCard", new { id = id });
+		}
         public IActionResult AdvertismentCard(int id)
         {
             Advertisement adv = _db.Advertisements.FirstOrDefault(a => a.Id == id);
@@ -44,7 +52,7 @@ namespace AdvertismentTask.Controllers
                     Title = advViewModel.Title,
                     Text = advViewModel.Text,
                     Image = path,
-                    CreationDate = DateTime.Now,
+                    CreationDate = DateTime.Today,
                     User = _db.Users.FirstOrDefault(x => x.Name == User.Identity!.Name)!
                 };
                 _db.Advertisements.Add(adv);

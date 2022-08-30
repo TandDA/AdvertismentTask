@@ -24,6 +24,11 @@ namespace AdvertismentTask.Controllers
             ViewBag.HostPath = _appEnvironment.WebRootPath;
             return View(_db.Advertisements.ToList());
         }
+        [HttpGet("denied")]
+        public IActionResult Denied()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
