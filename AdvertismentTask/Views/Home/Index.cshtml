@@ -18,17 +18,10 @@
 					<div><img class="card-img-top" href=@adv.Image src=@adv.Image alt="sd" /></div>
 					<h2 class="card-title">@adv.Title</h2>
 					<div>
-						<p class="font-weight-normal">@adv.Text.Substring(0, adv.Text.Length / 2) <a asp-area="" asp-controller="Home" asp-action="AdvertismentCard" asp-route-id ="@adv.Id">Подробнее</a></p>
+						<p class="font-weight-normal">@adv.Text.Substring(0, adv.Text.Length / 2) <a asp-area="" asp-controller="Advertisment" asp-action="AdvertismentCard" asp-route-id ="@adv.Id">Подробнее</a></p>
 					</div>
 					<p class="font-weight-normal">322 ₽</p>
 				</div>
-				@*                <form method="post">
-					<div class="btn-group" role="group" aria-label="Basic example">
-					<button type="submit" class="btn btn-dark" asp-area="" asp-controller="Cart" asp-action="Add" asp-route-id="@product.Id">В корзину</button>
-					<a type="button" class="btn btn-primary" asp-area="" asp-controller="Favorites" asp-action="Add" asp-route-id="@product.Id">В избранное</a>
-					<a type="button" class="btn btn-info" asp-area="" asp-controller="Compare" asp-action="Add" asp-route-id="@product.Id">Сравнить</a>
-					</div>
-					</form>*@
 			</div>
 		</div>
 	}

@@ -1,0 +1,32 @@
+﻿@model Advertisement
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="text-center py-5">
+    <h1 class="display-4"></h1>
+    @if (Model == null)
+    {
+        <div class="card-body">
+            <p>Извините, товар не найден</p>
+        </div>
+    }
+    else
+    {
+            <div class="row">
+                <div class="col-6">
+                    <img class="card-img-top" href="@Model.Image" src="@Model.Image" alt="24" />
+                </div>
+                <div class="col-6 py-2">
+                    <div class="row">
+                        <div class="text-left">
+                            <h2>@Model.Title</h2>
+                            <p class="font-weight-light">222  ₽</p>
+                            <p class="font-italic">@Model.Text</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    }
+</div>
