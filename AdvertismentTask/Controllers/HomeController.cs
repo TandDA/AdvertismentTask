@@ -25,7 +25,7 @@ namespace AdvertismentTask.Controllers
             return View(_db.Advertisements.ToList());
         }
         [HttpGet("denied")]
-        public IActionResult Denied()
+        public IActionResult Denied() // Страница отказа в доступе
         {
             return View();
         }
@@ -33,7 +33,7 @@ namespace AdvertismentTask.Controllers
         {
             return View();
         }
-        public async Task<IActionResult> Logout()
+        public async Task<IActionResult> Logout() // Выход
         {
             await HttpContext.SignOutAsync();
             return Redirect("/");

@@ -19,7 +19,7 @@ namespace AdvertismentTask.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Validate(string username, string password, string returnUrl)
+        public async Task<IActionResult> Validate(string username, string password, string returnUrl) //Проверка входных данных
         {
             ViewData["ReturnUrl"] = returnUrl;
             var user = _db.Users.FirstOrDefault(x => x.Name == username);
@@ -35,13 +35,13 @@ namespace AdvertismentTask.Controllers
                     claims.Add(new Claim(ClaimTypes.Role, "User"));
 
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+                var claimsPrincipal = new ClaimsPrincipal(claimsIdentity); // Работа с куки
 
                 await HttpContext.SignInAsync(claimsPrincipal);
                 return Redirect(returnUrl);
             }
             TempData["Error"] = "Ошибка. Имя или пароль неправильны";
-            return View("login");
+            return View("Index");
         }
     }
 }

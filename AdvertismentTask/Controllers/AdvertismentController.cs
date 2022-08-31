@@ -16,7 +16,7 @@ namespace AdvertismentTask.Controllers
             _appEnvironment = appEnvironment;
         }
         [Authorize(Roles = "Admin")]
-        public IActionResult Delate(int id)
+        public IActionResult Delate(int id) // Удаляем объявление
         {
             Advertisement adv = _db.Advertisements.FirstOrDefault(a => a.Id == id)!;
             if (adv != null)
@@ -29,7 +29,7 @@ namespace AdvertismentTask.Controllers
         }
 
         [Authorize(Roles ="Admin")]
-        public IActionResult ChangeAvailable(int id)
+        public IActionResult ChangeAvailable(int id) // Меняем видимость объявления
 		{
             Advertisement adv = _db.Advertisements.FirstOrDefault(a => a.Id == id)!;
             adv.IsAvailable = !adv.IsAvailable;
@@ -45,7 +45,6 @@ namespace AdvertismentTask.Controllers
                     return RedirectToAction("Denied","Home");
 
             ViewBag.Role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)!.Value;
-            ViewBag.Name = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)!.Value;
             if (adv == null) return NotFound();
             return View(adv);
         }

@@ -15,7 +15,7 @@ namespace AdvertismentTask.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CheckAdvertisment(int page = 1, SortState sortOrder = SortState.AvailableAsc)
         {
-            int pageSize = 2;
+            int pageSize = 3; // Количество элементов, что отоброзиться на странице администратора
 
             IQueryable<Advertisement> users = _db.Advertisements.AsQueryable();
 
@@ -32,7 +32,7 @@ namespace AdvertismentTask.Controllers
             };
 
             var count = await users.CountAsync();
-            var items = await users.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            var items = await users.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync(); // Получаем информацию для конекртной страницы
 
             // формируем модель представления
             IndexViewModel viewModel = new IndexViewModel(
