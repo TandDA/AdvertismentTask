@@ -7,8 +7,8 @@ namespace AdvertismentTask.Models
         public int Id { get; set; }
         public bool IsAvailable { get; set; } = false;
         public string? Image { get; set; }
-        public string Title { get; set; } = null!;
-        public string? Text { get; set; }
+        public string Title { get; set; } = "";
+        public string Text { get; set; } = "";
 
         [Column(TypeName = "Date")]
         public DateTime CreationDate { get; set; }

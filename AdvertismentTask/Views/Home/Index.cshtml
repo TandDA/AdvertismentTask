@@ -1,16 +1,14 @@
 ﻿@model IEnumerable<Advertisement>
 @{
 	ViewData["Title"] = "Home Page";
-	var P = Model;
-
-	Thread.Sleep(1);
+	var advertisments = Model;
 }
 
 <div class="text-center">
 	<h1 class="display-4">Объявления</h1>
 </div>
 <div class="row gx-4 gx-lg-5">
-	@foreach (var adv in P)
+	@foreach (var adv in advertisments)
 	{
 		if (adv.IsAvailable)
 		{

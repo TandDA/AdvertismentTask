@@ -1,47 +1,45 @@
-﻿@using AdvertismentTask.Models
-@{
-	ViewData["Title"] = "Home Page";
-}
-@model IEnumerable<Advertisement>
+﻿@addTagHelper *, AdvertismentTask
+@using AdvertismentTask.Models
+@model IndexViewModel
+
 <h1>Список объявлений</h1>
+
 <table class="table">
 	<thead>
 		<tr>
 			<th scope="col">
-				<a asp-action="CheckAdvertisment" asp-route-sortOrder="@ViewBag.TitleSort">
-					Заголовк
-				</a>
+				<a asp-action="CheckAdvertisment" asp-route-sortOrder="@(Model.SortViewModel.TitleSort)">Заголовк</a>
 			</th>
 			<th scope="col">
-				<a asp-action="CheckAdvertisment" asp-route-sortOrder="@ViewBag.TextSort">
-					Длина текста
-				</a>
+				<a asp-action="CheckAdvertisment" asp-route-sortOrder="@(Model.SortViewModel.TextSort)">Длина текста</a>
 			</th>
 			<th scope="col">
-				<a asp-action="CheckAdvertisment" asp-route-sortOrder="@ViewBag.DateSort">
-					Дата создания
-				</a>
+				<a asp-action="CheckAdvertisment" asp-route-sortOrder="@(Model.SortViewModel.DateSort)">Дата создания</a>
 			</th>
 			<th scope="col">
-				<a asp-action="CheckAdvertisment" asp-route-sortOrder="@ViewBag.AvailableSort">
-					Проверенно
-				</a>
+				<a asp-action="CheckAdvertisment" asp-route-sortOrder="@(Model.SortViewModel.AvailableSort)">Проверенно</a>
 			</th>
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (Advertisement u in Model)
+		@foreach (Advertisement u in Model.Advertisements)
 		{
 			<tr>
-				<td><a asp-controller="Advertisment" asp-action="AdvertismentCard" asp-route-id=@u.Id>@u.Title</a></td>
+				<td><a asp-action="AdvertismentCard" asp-controller="Advertisment" asp-route-id=@u.Id>@u.Title</a></td>
 				<td>@u.Text</td>
 				<td>@u.CreationDate.ToShortDateString()</td>
-				@if(u.IsAvailable)
+				@if (u.IsAvailable)
 				{
 					<td><i class="fa-solid fa-circle-check" style="color:green"></i></td>
 				}
-				else {<td><i class="fa-solid fa-circle-xmark" style="color:red"></i></td>}
+				else
+				{
+					<td><i class="fa-solid fa-circle-xmark" style="color:red"></i></td>
+				}
 			</tr>
 		}
 	</tbody>
 </table>
+
+<page-link page-model="Model.PageViewModel" page-action="CheckAdvertisment"
+		   page-url-sortorder="@(Model.SortViewModel.Current)"></page-link>

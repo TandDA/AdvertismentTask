@@ -13,8 +13,10 @@ namespace AdvertismentTask.Controllers
             _db = db;
         }
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> CheckAdvertisment(SortState sortOrder = SortState.AvailableAsc)
+        public async Task<IActionResult> CheckAdvertisment(int page = 1, SortState sortOrder = SortState.AvailableAsc)
         {
+            int pageSize = 18;
+
             IQueryable<Advertisement> users = _db.Advertisements.AsQueryable();
 
             ViewData["TitleSort"] = sortOrder == SortState.TitleAsc ? SortState.TitleDesc : SortState.TitleAsc;
@@ -33,7 +35,17 @@ namespace AdvertismentTask.Controllers
                 SortState.DateDesc => users.OrderByDescending(s => s.CreationDate),
                 _ => users.OrderBy(s => s.IsAvailable),
             };
-            return View(await users.AsNoTracking().ToListAsync());
+
+            var count = await users.CountAsync();
+            var items = await users.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            // формируем модель представления
+            IndexViewModel viewModel = new IndexViewModel(
+                items,
+                new PageViewModel(count, page, pageSize),
+                new SortViewModel(sortOrder)
+            );
+            return View(viewModel);
         }
     }
 }
