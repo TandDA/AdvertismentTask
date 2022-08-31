@@ -28,10 +28,15 @@ namespace AdvertismentTask.Controllers
                 var claims = new List<Claim>();
                 claims.Add(new Claim(ClaimTypes.Name, username));
                 claims.Add(new Claim(ClaimTypes.NameIdentifier, password));
+
                 if (username == "Admin")
                     claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+                else
+                    claims.Add(new Claim(ClaimTypes.Role, "User"));
+
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+
                 await HttpContext.SignInAsync(claimsPrincipal);
                 return Redirect(returnUrl);
             }

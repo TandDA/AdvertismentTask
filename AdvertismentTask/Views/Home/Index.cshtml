@@ -24,7 +24,7 @@
 						<div>
 							<p class="font-weight-normal">@adText <a asp-area="" asp-controller="Advertisment" asp-action="AdvertismentCard" asp-route-id="@adv.Id">Подробнее</a></p>
 						</div>
-						<p class="font-weight-normal">@adv.CreationDate.ToShortDateString()</p>
+						<p class="font-weight-normal">@adv.CreationDate.ToShortDateString() @ViewBag.Name</p>
 					</div>
 				</div>
 			</div>

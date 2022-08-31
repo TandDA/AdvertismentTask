@@ -1,6 +1,7 @@
 ﻿using AdvertismentTask.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace AdvertismentTask.Controllers
 {
@@ -37,6 +38,8 @@ namespace AdvertismentTask.Controllers
         public IActionResult AdvertismentCard(int id)
         {
             Advertisement adv = _db.Advertisements.FirstOrDefault(a => a.Id == id);
+            ViewBag.Role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
+            ViewBag.Name = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value;
             if (adv == null) return NotFound();
             return View(adv);
         }

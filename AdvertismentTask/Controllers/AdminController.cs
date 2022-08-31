@@ -1,4 +1,5 @@
 ﻿using AdvertismentTask.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,7 @@ namespace AdvertismentTask.Controllers
         {
             _db = db;
         }
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CheckAdvertisment(SortState sortOrder = SortState.AvailableAsc)
         {
             IQueryable<Advertisement> users = _db.Advertisements.AsQueryable();
