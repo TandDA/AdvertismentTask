@@ -1,6 +1,7 @@
 ﻿using AdvertismentTask.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace AdvertismentTask.Controllers
@@ -38,7 +39,7 @@ namespace AdvertismentTask.Controllers
         [Authorize]
         public IActionResult AdvertismentCard(int id)
         {
-            Advertisement adv = _db.Advertisements.FirstOrDefault(a => a.Id == id)!;
+            Advertisement adv = _db.Advertisements.Include(u => u.User).FirstOrDefault(a => a.Id == id)!;
             if (!adv.IsAvailable)
                 if(User.Claims.FirstOrDefault(u => u.Type == ClaimTypes.Role)!.Value == "User") // Если User пытается обратится к закрытому объявлению, то не даем доступ
                     return RedirectToAction("Denied","Home");
