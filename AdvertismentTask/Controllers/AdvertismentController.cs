@@ -35,6 +35,7 @@ namespace AdvertismentTask.Controllers
             _db.SaveChanges();
             return RedirectToAction("AdvertismentCard", new { id = id });
 		}
+        [Authorize]
         public IActionResult AdvertismentCard(int id)
         {
             Advertisement adv = _db.Advertisements.FirstOrDefault(a => a.Id == id)!;
