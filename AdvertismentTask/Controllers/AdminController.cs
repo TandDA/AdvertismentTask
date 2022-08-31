@@ -18,12 +18,15 @@ namespace AdvertismentTask.Controllers
             ViewData["TitleSort"] = sortOrder == SortState.TitleAsc ? SortState.TitleDesc : SortState.TitleAsc;
             ViewData["TextSort"] = sortOrder == SortState.TextAsc ? SortState.TextDesc : SortState.TextAsc;
             ViewData["DateSort"] = sortOrder == SortState.DateAsc ? SortState.DateDesc : SortState.DateAsc;
+            ViewData["AvailableSort"] = sortOrder == SortState.AvailableAsc ? SortState.AvailableDesc : SortState.AvailableAsc;
 
             users = sortOrder switch
             {
                 SortState.TitleDesc => users.OrderByDescending(s => s.Title),
                 SortState.TextAsc => users.OrderBy(s => s.Text.Length),
                 SortState.TextDesc => users.OrderByDescending(s => s.Text.Length),
+                SortState.AvailableAsc => users.OrderBy(s => s.IsAvailable),
+                SortState.AvailableDesc => users.OrderByDescending(s => s.IsAvailable),
                 SortState.DateAsc => users.OrderBy(s => s.CreationDate),
                 SortState.DateDesc => users.OrderByDescending(s => s.CreationDate),
                 _ => users.OrderBy(s => s.Title),
