@@ -13,6 +13,19 @@ namespace AdvertismentTask.Controllers
             _db = db;
             _appEnvironment = appEnvironment;
         }
+        [Authorize(Roles = "Admin")]
+        public IActionResult Delate(int id)
+        {
+            Advertisement adv = _db.Advertisements.FirstOrDefault(a => a.Id == id);
+            if (adv != null)
+            {
+                _db.Advertisements.Remove(adv);
+                _db.SaveChanges();
+            }
+            return RedirectToAction("Index","Home");
+
+        }
+
         [Authorize(Roles ="Admin")]
         public IActionResult ChangeAvailable(int id)
 		{
