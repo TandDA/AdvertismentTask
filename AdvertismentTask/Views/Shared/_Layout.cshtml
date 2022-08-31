@@ -40,22 +40,16 @@
 						       </a>
 							   <ul class="dropdown-menu">
 								   <li><a class="dropdown-item" asp-controller="Admin" asp-action="CheckAdvertisment">Админ панель</a></li>
-								   <li><a class="dropdown-item" href="#">Another action</a></li>
-							       <li><hr class="dropdown-divider"></li>
-								   <li><a class="dropdown-item" href="#">Something else here</a></li>
 							   </ul>
 						    </li>
-@*							<li class="nav-item dropdown">
-								<a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-user-large"></i></a>
-							</li>*@
 							<li class="nav-item">
-								<a class="nav-link" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+								<a class="nav-link" asp-area="" asp-controller="Home" asp-action="Logout">Выйти</a>
 							</li>
 						}
 						else
 						{
 							<li class="nav-item">
-								<a class="nav-link"  href="Login\Index?ReturnUrl=%2FHome%2FIndex">Login</a>
+								<a class="nav-link"  href="Login\Index?ReturnUrl=%2FHome%2FIndex">Войти</a>
 							</li>
 						}
 					</ul>

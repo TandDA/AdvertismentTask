@@ -62,7 +62,7 @@ namespace AdvertismentTask.Controllers
                 if (advViewModel.Image != null)
                     path = $@"/images/{advViewModel.Image.FileName}";
                 else
-                    path = @"/images/noimage.jpg"; // устанавливаем стандартную картинку
+                    path = @"/images/standartImage.jpg"; // устанавливаем стандартную картинку
                 string fullPath = _appEnvironment.WebRootPath + path;
 
                 Directory.CreateDirectory(Path.GetDirectoryName(fullPath)!);

@@ -15,14 +15,9 @@ namespace AdvertismentTask.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CheckAdvertisment(int page = 1, SortState sortOrder = SortState.AvailableAsc)
         {
-            int pageSize = 18;
+            int pageSize = 2;
 
             IQueryable<Advertisement> users = _db.Advertisements.AsQueryable();
-
-            ViewData["TitleSort"] = sortOrder == SortState.TitleAsc ? SortState.TitleDesc : SortState.TitleAsc;
-            ViewData["TextSort"] = sortOrder == SortState.TextAsc ? SortState.TextDesc : SortState.TextAsc;
-            ViewData["DateSort"] = sortOrder == SortState.DateAsc ? SortState.DateDesc : SortState.DateAsc;
-            ViewData["AvailableSort"] = sortOrder == SortState.AvailableAsc ? SortState.AvailableDesc : SortState.AvailableAsc;
 
             users = sortOrder switch
             {

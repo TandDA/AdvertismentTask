@@ -40,7 +40,7 @@ namespace AdvertismentTask.Controllers
                 await HttpContext.SignInAsync(claimsPrincipal);
                 return Redirect(returnUrl);
             }
-            TempData["Error"] = "Error. Username or Password is invalid";
+            TempData["Error"] = "Ошибка. Имя или пароль неправильны";
             return View("login");
         }
     }
