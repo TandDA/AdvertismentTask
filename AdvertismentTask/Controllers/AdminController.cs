@@ -26,8 +26,8 @@ namespace AdvertismentTask.Controllers
             {
                 SortState.TitleAsc => users.OrderBy(s => s.Title),
                 SortState.TitleDesc => users.OrderByDescending(s => s.Title),
-                SortState.TextAsc => users.OrderBy(s => s.Text.Length),
-                SortState.TextDesc => users.OrderByDescending(s => s.Text.Length),
+                SortState.TextAsc => users.OrderBy(s => s.Text!.Length),
+                SortState.TextDesc => users.OrderByDescending(s => s.Text!.Length),
                 SortState.AvailableDesc => users.OrderByDescending(s => s.IsAvailable),
                 SortState.DateAsc => users.OrderBy(s => s.CreationDate),
                 SortState.DateDesc => users.OrderByDescending(s => s.CreationDate),

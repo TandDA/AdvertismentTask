@@ -17,6 +17,11 @@ namespace AdvertismentTask.Controllers
         [HttpPost]
         public IActionResult Registr(User user)
         {
+            if(_db.Users.FirstOrDefault(u => u.Name == user.Name) == null)
+            {
+                ViewBag.Error = "Пользователь с таким именем уже существует";
+                return View();
+            }
             _db.Users.Add(user);
             _db.SaveChanges();
             return RedirectToAction("Index","Home");

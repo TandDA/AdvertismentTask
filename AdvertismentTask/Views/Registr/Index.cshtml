@@ -1,6 +1,12 @@
 ﻿@model AdvertismentTask.Models.User
- 
+@{
+    var error = ViewBag.Error;
+}
 <h2>Добавление пользователя</h2>
+@if(!string.IsNullOrEmpty(error))
+{
+    <h2 class="alert-danger" style="padding:20px">@error</h2>
+}
 <form asp-action="registr" asp-controller="registr" method="post">
     <p>
         <label asp-for="Name">Имя</label><br />

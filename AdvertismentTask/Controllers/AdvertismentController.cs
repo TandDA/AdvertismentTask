@@ -17,7 +17,7 @@ namespace AdvertismentTask.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Delate(int id)
         {
-            Advertisement adv = _db.Advertisements.FirstOrDefault(a => a.Id == id);
+            Advertisement adv = _db.Advertisements.FirstOrDefault(a => a.Id == id)!;
             if (adv != null)
             {
                 _db.Advertisements.Remove(adv);
@@ -30,16 +30,20 @@ namespace AdvertismentTask.Controllers
         [Authorize(Roles ="Admin")]
         public IActionResult ChangeAvailable(int id)
 		{
-            Advertisement adv = _db.Advertisements.FirstOrDefault(a => a.Id == id);
+            Advertisement adv = _db.Advertisements.FirstOrDefault(a => a.Id == id)!;
             adv.IsAvailable = !adv.IsAvailable;
             _db.SaveChanges();
             return RedirectToAction("AdvertismentCard", new { id = id });
 		}
         public IActionResult AdvertismentCard(int id)
         {
-            Advertisement adv = _db.Advertisements.FirstOrDefault(a => a.Id == id);
-            ViewBag.Role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value;
-            ViewBag.Name = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value;
+            Advertisement adv = _db.Advertisements.FirstOrDefault(a => a.Id == id)!;
+            if (!adv.IsAvailable)
+                if(User.Claims.FirstOrDefault(u => u.Type == ClaimTypes.Role)!.Value == "User") // Если User пытается обратится к закрытому объявлению, то не даем доступ
+                    return RedirectToAction("Denied","Home");
+
+            ViewBag.Role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)!.Value;
+            ViewBag.Name = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)!.Value;
             if (adv == null) return NotFound();
             return View(adv);
         }
@@ -53,16 +57,22 @@ namespace AdvertismentTask.Controllers
         {
             if (advViewModel != null)
             {
-                // путь к папке Files
-                string path = $@"/images/{advViewModel.Image.FileName}";
+                string path;
+                if (advViewModel.Image != null)
+                    path = $@"/images/{advViewModel.Image.FileName}";
+                else
+                    path = @"/images/noimage.jpg"; // устанавливаем стандартную картинку
                 string fullPath = _appEnvironment.WebRootPath + path;
 
-                Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
-                // сохраняем файл в папку Files в каталоге wwwroot
-                using (var fileStream = new FileStream(fullPath, FileMode.Create))
+                Directory.CreateDirectory(Path.GetDirectoryName(fullPath)!);
+                if (advViewModel.Image != null)
                 {
-                    await advViewModel.Image.CopyToAsync(fileStream);
+                    using (var fileStream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        await advViewModel.Image.CopyToAsync(fileStream);
+                    }
                 }
+
                 Advertisement adv = new Advertisement
                 {
                     Title = advViewModel.Title,
