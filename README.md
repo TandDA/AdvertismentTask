@@ -3,7 +3,7 @@
 
 Загрузка файлов для объявлений по неизвестной мне причине не работает в яндексе, так что стоит тестировать через гугл
 
-Строка подключения к БД по которой обращается приложение: Server=localhost;Database=AdvertismentTask;Trusted_Connection=True;
+Строка подключения к БД по которой обращается приложение: Server=localhost;Database=usersdb;Trusted_Connection=True;
 
 Аккаунт администратора:
 
